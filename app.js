@@ -11,8 +11,8 @@ var motivation = require("motivation");
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
 var tone_analyzer = new ToneAnalyzerV3({
-  username: "6c217e88-87a7-4f61-97b2-70ae74e165d3",
-  password: "xBO5QFA3lhzO",
+  username: "",
+  password: "",
   version_date: '2017-09-21'
 });
 
@@ -30,21 +30,23 @@ tableSvc.createTableIfNotExists('ScoreTable', function(error, result, response){
   }
 });
 
-// Setup Restify Server
+// Setting up Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
 console.log('%s listening to %s', server.name, server.url);
 });
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: "92129e20-3f64-4aed-806d-0cd2c7c7d8cb",
-    appPassword: "zvzGUB64mjjjMSGW759}[}_"  
+    appId: "",
+    appPassword: ""  
 });
+
+//var exe;
 
 // Listen for messages from users
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
-
+//var exe;
 
 const LuisModelUrl = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/911d1e5e-086b-4341-9cc6-9827bc186a12?subscription-key=7aeea59a16a5467aacff93989cd145f5&verbose=true&timezoneOffset=0&q=";
 var Recognizer = new builder.LuisRecognizer(LuisModelUrl);
@@ -53,8 +55,8 @@ var intents = new builder.IntentDialog({ recognizers: [Recognizer] });
 var x = 1;
 // setting up QnA Maker
 var recognizer = new builder_cognitiveservices.QnAMakerRecognizer({
-    knowledgeBaseId: '695169f1-b6b3-4a6d-9f9c-5079490e6eec', // process.env.QnAKnowledgebaseId, 
-    subscriptionKey: '28beda6a7ff54b0db4e7b8da16f77801'
+    knowledgeBaseId: '', // process.env.QnAKnowledgebaseId, 
+    subscriptionKey: ''
 }); //process.env.QnASubscriptionKey});
 if (x == 1) {
     var basicQnAMakerDialog = new builder_cognitiveservices.QnAMakerDialog({
@@ -387,7 +389,7 @@ else if(qnaMakerResult.answers && qnaMakerResult.score >= 0.5 && news){
                     ])
                 ]);
                 session.send(msg).endDialog();
-                },30000
+                },10000
             );
         }
     });
@@ -520,7 +522,7 @@ if (WOD) {
         session.send("Five was the correct answer").endDialog;
     }
 }
-var msg="Large areas of salty water are caled_____?";
+var msg="Large areas of salty water are called_____?";
     session.send(msg).endDialog;
     const LuisModelUrl = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/911d1e5e-086b-4341-9cc6-9827bc186a12?subscription-key=7aeea59a16a5467aacff93989cd145f5&verbose=true&timezoneOffset=0&q=";
     var recognizer = new builder.LuisRecognizer(LuisModelUrl);
@@ -620,7 +622,7 @@ var di = dh*3600000;
         },5000
     );
 
-    },15000
+    },20000
 );
 }
 }
